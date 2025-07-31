@@ -10,28 +10,41 @@ function getComputerChoice(){
 function playGame(){
 
     function playRound(humanChoice, computerChoice){
-        function showOutput(result){
-            const roundOutput = document.querySelector("#roundInfo");
+        function showOutput(result,id){
+            const roundOutput = document.querySelector(id);
             roundOutput.textContent = result;
         }
 
-        humanChoice = humanChoice.toLowerCase();
-        if(!((humanChoice=='rock')||(humanChoice=='paper')||(humanChoice=='scissor'))){
-            showOutput("Wrong Player Input! Try Again next time!");
-            return 'invalid';
+        function gameEnd(){
+            if(humanScore === 5){
+                showOutput(`You won the Game by ${humanScore-computerScore} points!`,'#finalResult');
+                return 'end';
+            }
+
+            else if(computerScore === 5){
+                showOutput(`You lost the Game by ${computerScore-humanScore} points!`,'#finalResult');
+                return 'end';
+            }
+            else{
+                showOutput('FIRST to WIN 5 ROUNDS will WIN the GAME!','#finalResult');
+                return 'continue';
+            }
         }
+
         if ((humanChoice === 'rock' && computerChoice ==='scissor')||(humanChoice === 'scissor' && computerChoice ==='paper')||(humanChoice === 'paper' && computerChoice ==='rock')){
-            showOutput(`You win! ${humanChoice} beats ${computerChoice}!`);
+            showOutput(`You win! ${humanChoice} beats ${computerChoice}!`,'#roundInfo');
             humanScore++;
         }
         else if (humanChoice === computerChoice){
-            showOutput(`Draw! Both chose ${humanChoice}!`);
+            showOutput(`Draw! Both chose ${humanChoice}!`,'#roundInfo');
         }
         else{
-            showOutput(`You Lose! ${computerChoice} beats ${humanChoice}!`);
+            showOutput(`You Lose! ${computerChoice} beats ${humanChoice}!`,'#roundInfo');
             computerScore++;
         }
-        return 'success';
+        showOutput(`Human: ${humanScore} and Computer: ${computerScore}`,'#runningScore');
+        let result = gameEnd();
+        return result;
     }
 
     let humanScore = 0;
@@ -42,20 +55,12 @@ function playGame(){
         const click = bttn.addEventListener("click",(event)=>{
         const choice = event.target.id;
         let success = playRound(choice,getComputerChoice());
+        if( success === 'end'){
+            bttns.forEach((bttn)=>bttn.disabled=true);
+        };
         });
 
     });
-
-    if(humanScore > computerScore){
-        console.log(`You won the Game by ${humanScore-computerScore} points!`);
-    }
-    else if(humanScore < computerScore){
-        console.log(`You lost the Game by ${computerScore-humanScore} points!`);
-    }
-    else{
-        console.log('Game was a Draw!');
-    }
-    return;
 }
 
 playGame();
