@@ -1,4 +1,5 @@
 # odin-rockpaperscissor
 
 This is a commandline rock paper scissor game!
-press ctrl + shift + c and switch to console in order to play the game on windows!
+
+Press the buttons for your choice and read the round info, score and game info for scoreboard!
