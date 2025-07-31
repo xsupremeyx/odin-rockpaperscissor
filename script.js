@@ -10,20 +10,25 @@ function getComputerChoice(){
 function playGame(){
 
     function playRound(humanChoice, computerChoice){
+        function showOutput(result){
+            const roundOutput = document.querySelector("#roundInfo");
+            roundOutput.textContent = result;
+        }
+
         humanChoice = humanChoice.toLowerCase();
         if(!((humanChoice=='rock')||(humanChoice=='paper')||(humanChoice=='scissor'))){
-            console.log("Wrong Player Input! Try Again next time!");
+            showOutput("Wrong Player Input! Try Again next time!");
             return 'invalid';
         }
         if ((humanChoice === 'rock' && computerChoice ==='scissor')||(humanChoice === 'scissor' && computerChoice ==='paper')||(humanChoice === 'paper' && computerChoice ==='rock')){
-            console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
+            showOutput(`You win! ${humanChoice} beats ${computerChoice}!`);
             humanScore++;
         }
         else if (humanChoice === computerChoice){
-            console.log(`Draw! Both chose ${humanChoice}!`);
+            showOutput(`Draw! Both chose ${humanChoice}!`);
         }
         else{
-            console.log(`You Lose! ${computerChoice} beats ${humanChoice}!`);
+            showOutput(`You Lose! ${computerChoice} beats ${humanChoice}!`);
             computerScore++;
         }
         return 'success';
