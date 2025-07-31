@@ -7,16 +7,8 @@ function getComputerChoice(){
     else return "scissor";
 }
 
-function getHumanChoice(){
-    let choice = prompt("Enter your choice: ");
-    return choice;
-}
-
-
-
 function playGame(){
-    let humanScore = 0;
-    let computerScore = 0;
+
     function playRound(humanChoice, computerChoice){
         humanChoice = humanChoice.toLowerCase();
         if(!((humanChoice=='rock')||(humanChoice=='paper')||(humanChoice=='scissor'))){
@@ -36,13 +28,19 @@ function playGame(){
         }
         return 'success';
     }
-    let rounds = 5;
-    for(let i = 0; i < rounds; i++){
-        let success = playRound(getHumanChoice(),getComputerChoice())
-        if (success==='invalid'){
-            rounds++;
-        }
-    }
+
+    let humanScore = 0;
+    let computerScore = 0;
+
+    const bttns = document.querySelectorAll("button");
+    bttns.forEach((bttn) => {
+        const click = bttn.addEventListener("click",(event)=>{
+        const choice = event.target.id;
+        let success = playRound(choice,getComputerChoice());
+        });
+
+    });
+
     if(humanScore > computerScore){
         console.log(`You won the Game by ${humanScore-computerScore} points!`);
     }
